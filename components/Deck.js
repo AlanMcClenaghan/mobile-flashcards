@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
+import { getDecks } from '../utils/api'
 
 // Individual Deck View
 // displays the title of the Deck
@@ -8,10 +9,24 @@ import { View, Text } from 'react-native'
 // An option to add a new question to the deck
 
 class Deck extends Component {
+
+  static navigationOptions = ({ navigation }) => {
+    const { entryId } = navigation.state.params
+
+    return {
+      title: navigation.state.params.entryId
+    }
+  }
+
   render() {
+
+    const deck = this.props.navigation.state.params.entryId
+    const decks = getDecks()
+
     return (
-      <View>
-        <Text>Deck View</Text>
+      <View style={styles.container}>
+        <Text>{decks[deck].title}</Text>
+        <Text>{decks[deck].questions.length} {decks[deck].questions.length === 1 ? "card" : "cards"}</Text>
       </View>
     )
   }
@@ -19,3 +34,12 @@ class Deck extends Component {
 }
 
 export default Deck
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  }
+});

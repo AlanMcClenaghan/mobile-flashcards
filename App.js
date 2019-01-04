@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { StyleSheet, Text, View, StatusBar } from 'react-native'
-import { TabNavigator } from 'react-navigation'
+import { TabNavigator, StackNavigator } from 'react-navigation'
 import { MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons'
 import { Constants } from 'expo'
 import { purple, white } from './utils/colors'
@@ -8,9 +8,7 @@ import { purple, white } from './utils/colors'
 // import views and components
 import DeckList from './components/DeckList'
 import Deck from './components/Deck'
-import Quiz from './components/Quiz'
 import NewDeck from './components/NewDeck'
-import AddCard from './components/AddCard'
 
 function UdaciStatusBar({ backgroundColor, ...props }) {
   return (
@@ -18,22 +16,6 @@ function UdaciStatusBar({ backgroundColor, ...props }) {
       <StatusBar translucent backgroundColor={backgroundColor} {...props} />
     </View>
   )
-}
-
-export default class App extends React.Component {
-  // componentDidMount() {
-  //   console.log('Before')
-  //   debugger
-  //   console.log('After')
-  // }
-  render() {
-    return (
-      <View style={styles.container}>
-        <UdaciStatusBar backgroundColor={purple} barStyle='light-content' />
-        <Tabs />
-      </View>
-    );
-  }
 }
 
 const Tabs = TabNavigator({
@@ -52,9 +34,9 @@ const Tabs = TabNavigator({
     }
   },
 }, {
-    // navigationOptions: {
-    //   header: null
-    // },
+    navigationOptions: {
+      header: null
+    },
     tabBarOptions: {
       activeTintColor: purple,
       style: {
@@ -71,8 +53,36 @@ const Tabs = TabNavigator({
     }
   });
 
+const MainNavigator = StackNavigator({
+  Home: {
+    screen: Tabs,
+  },
+  Deck: {
+    screen: Deck,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: purple
+      }
+    }
+  }
+})
+
+export default class App extends Component {
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <UdaciStatusBar backgroundColor={purple} barStyle='light-content' />
+        <MainNavigator />
+      </View>
+    );
+  }
+}
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginBottom: 10,
   },
 });
