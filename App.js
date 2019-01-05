@@ -12,6 +12,7 @@ import { purple, white } from './utils/colors'
 import DeckList from './components/DeckList'
 import Deck from './components/Deck'
 import NewDeck from './components/NewDeck'
+import AddCard from './components/AddCard'
 
 function UdaciStatusBar({ backgroundColor, ...props }) {
   return (
@@ -62,6 +63,15 @@ const MainNavigator = StackNavigator({
   },
   Deck: {
     screen: Deck,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: purple
+      }
+    }
+  },
+  AddCard: {
+    screen: AddCard,
     navigationOptions: {
       headerTintColor: white,
       headerStyle: {

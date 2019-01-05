@@ -43,7 +43,6 @@ class NewDeck extends Component {
       textInput: ''
     }))
 
-
   }
 
   render() {

@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { getDecks } from '../utils/api'
 import { receiveDecks } from '../actions'
 import Button from './Button'
-import { black, white, purple } from '../utils/colors'
+import { black, white } from '../utils/colors'
 
 // Individual Deck View
 // displays the title of the Deck
@@ -15,7 +15,6 @@ import { black, white, purple } from '../utils/colors'
 class Deck extends Component {
 
   static navigationOptions = ({ navigation }) => {
-    const { entryId } = navigation.state.params
 
     return {
       title: navigation.state.params.entryId
