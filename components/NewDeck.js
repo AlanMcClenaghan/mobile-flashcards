@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { saveDeckTitle } from '../utils/api'
 import { addDeck } from '../actions'
 import { black, white } from '../utils/colors'
+import Button from './Button'
 
 // New Deck View
 // An option to enter in the title for the new deck
@@ -58,11 +59,13 @@ class NewDeck extends Component {
           value={textInput}
           placeholder="Deck Title"
         ></TextInput>
-        <TouchableOpacity
-          style={styles.button}
+        <Button
           onPress={this.handleSubmitTitle}
-        ><Text style={styles.buttonText}>Create Deck</Text>
-        </TouchableOpacity>
+          style={styles}
+          text={"Create Deck"}
+          backgroundColor={black}
+          color={white}
+        />
       </View>
     )
   }

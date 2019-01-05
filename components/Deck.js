@@ -3,6 +3,8 @@ import { View, Text, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import { getDecks } from '../utils/api'
 import { receiveDecks } from '../actions'
+import Button from './Button'
+import { black, white, purple } from '../utils/colors'
 
 // Individual Deck View
 // displays the title of the Deck
@@ -23,12 +25,34 @@ class Deck extends Component {
   render() {
 
     const deck = this.props.navigation.state.params.entryId
-    const { decks } = this.props
+    const { decks, navigation } = this.props
+    const entryId = this.props.navigation.state.params.entryId
+
+
+    console.log(deck)
 
     return (
       <View style={styles.container}>
-        <Text>{decks[deck].title}</Text>
+        <Text style={styles.text}>{decks[deck].title}</Text>
         <Text>{decks[deck].questions.length} {decks[deck].questions.length === 1 ? "card" : "cards"}</Text>
+
+        <View style={styles.buttons}>
+          <Button
+            onPress={() => this.props.navigation.navigate('AddCard', { entryId: deck })}
+            style={styles}
+            text={"Add Card"}
+            backgroundColor={white}
+            color={black}
+          />
+          <Button
+            onPress={() => this.props.navigation.navigate('Quiz', { entryId: deck })}
+            style={styles}
+            text={"Start Quiz"}
+            backgroundColor={black}
+            color={white}
+          />
+        </View>
+
       </View>
     )
   }
@@ -49,5 +73,25 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  text: {
+    margin: 10,
+    fontSize: 30,
+    color: black,
+    textAlign: 'center',
+  },
+  buttons: {
+    marginTop: 150,
+  },
+  button: {
+    width: 200,
+    padding: 10,
+    margin: 10,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: black,
+  },
+  buttonText: {
+    textAlign: 'center'
   }
 });
