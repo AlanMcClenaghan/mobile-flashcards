@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View, StatusBar } from 'react-native'
 import { TabNavigator, StackNavigator } from 'react-navigation'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+import reducer from './reducers'
 import { MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons'
 import { Constants } from 'expo'
 import { purple, white } from './utils/colors'
@@ -72,10 +75,12 @@ export default class App extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <UdaciStatusBar backgroundColor={purple} barStyle='light-content' />
-        <MainNavigator />
-      </View>
+      <Provider store={createStore(reducer)}>
+        <View style={styles.container}>
+          <UdaciStatusBar backgroundColor={purple} barStyle='light-content' />
+          <MainNavigator />
+        </View>
+      </Provider>
     );
   }
 }
@@ -83,6 +88,6 @@ export default class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginBottom: 10,
+    // marginBottom: 10,
   },
 });

@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
+import { connect } from 'react-redux'
 import { getDecks } from '../utils/api'
+import { receiveDecks } from '../actions'
 
 // Individual Deck View
 // displays the title of the Deck
@@ -21,7 +23,7 @@ class Deck extends Component {
   render() {
 
     const deck = this.props.navigation.state.params.entryId
-    const decks = getDecks()
+    const { decks } = this.props
 
     return (
       <View style={styles.container}>
@@ -33,7 +35,13 @@ class Deck extends Component {
 
 }
 
-export default Deck
+function mapStateToProps(decks) {
+  return {
+    decks
+  }
+}
+
+export default connect(mapStateToProps)(Deck)
 
 const styles = StyleSheet.create({
   container: {
