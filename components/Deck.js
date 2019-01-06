@@ -65,7 +65,7 @@ export default connect(mapStateToProps)(Deck)
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#eceaf1',
     alignItems: 'center',
     justifyContent: 'center',
   },

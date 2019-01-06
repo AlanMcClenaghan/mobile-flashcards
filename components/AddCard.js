@@ -124,7 +124,7 @@ export default connect()(AddCard)
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#eceaf1',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -140,6 +140,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderWidth: 1,
     borderColor: black,
+    backgroundColor: white,
     marginTop: 10,
     borderRadius: 5
   },

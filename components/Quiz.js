@@ -74,16 +74,11 @@ class Quiz extends Component {
     const { decks } = this.props
     const deck = this.props.navigation.state.params.entryId
 
-    console.log(decks[deck].questions.length)
-
     const { showAnswer, QuestionsCorrect, QuestionsIncorrect } = this.state
     const numberCorrect = QuestionsCorrect.length
     const questionCount = numberCorrect + QuestionsIncorrect.length
     const totalQuestions = decks[deck].questions.length
     const percentageCorrect = (numberCorrect / totalQuestions * 100).toFixed()
-
-    console.log(questionCount)
-    console.log(this.state)
 
     if (decks[deck].questions.length === 0) {
       return (
@@ -104,8 +99,8 @@ class Quiz extends Component {
     if (questionCount === totalQuestions) {
       return (
         <View style={styles.container}>
-          <Text>Quiz completed</Text>
-          <Text>You got {numberCorrect} {numberCorrect === 1 ? "question" : "questions"} correct out of {totalQuestions} {totalQuestions === 1 ? "question" : "questions"} answered ({percentageCorrect}%)</Text>
+          <Text style={styles.text}>Quiz completed</Text>
+          <Text style={styles.text}>You got {numberCorrect} {numberCorrect === 1 ? "question" : "questions"} correct out of {totalQuestions} {totalQuestions === 1 ? "question" : "questions"} answered ({percentageCorrect}%)</Text>
           <Button
             onPress={this.tryAgain}
             style={styles}
@@ -167,7 +162,7 @@ export default connect(mapStateToProps)(Quiz)
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#eceaf1',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -176,6 +171,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: black,
     textAlign: 'center',
+    width: 250
   },
   input: {
     width: 300,
