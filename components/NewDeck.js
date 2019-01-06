@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, Alert } from 'react-native'
 import { connect } from 'react-redux'
 import { saveDeckTitle } from '../utils/api'
 import { addDeck } from '../actions'
@@ -26,23 +26,32 @@ class NewDeck extends Component {
     const { textInput } = this.state
     const { dispatch, navigation } = this.props
 
-    const deck = {
-      [textInput]: {
-        title: textInput,
-        questions: []
+    if (!textInput) {
+      Alert.alert(
+        'No Title',
+        'Please type in a title for your deck',
+        [
+          { text: 'OK' },
+        ],
+      )
+    } else {
+      const deck = {
+        [textInput]: {
+          title: textInput,
+          questions: []
+        }
       }
+
+      saveDeckTitle(textInput)
+
+      dispatch(addDeck(deck))
+
+      navigation.navigate('Deck', { entryId: textInput })
+
+      this.setState(() => ({
+        textInput: ''
+      }))
     }
-
-    saveDeckTitle(textInput)
-
-    dispatch(addDeck(deck))
-
-    navigation.navigate('Deck', { entryId: textInput })
-
-    this.setState(() => ({
-      textInput: ''
-    }))
-
   }
 
   render() {

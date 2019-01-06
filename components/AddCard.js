@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TextInput, KeyboardAvoidingView } from 'react-native'
+import { View, Text, StyleSheet, TextInput, KeyboardAvoidingView, Alert } from 'react-native'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
 import { addCardToDeck } from '../utils/api'
@@ -43,26 +43,48 @@ class AddCard extends Component {
     const { dispatch, navigation } = this.props
     const deck = navigation.state.params.entryId
 
-    const card = {
-      question,
-      answer
+    if (!question && !answer) {
+      Alert.alert(
+        'No Question or Answer',
+        'Please type in a question and an answer for your card',
+        [
+          { text: 'OK' },
+        ],
+      )
+    } else if (!question) {
+      Alert.alert(
+        'No Question',
+        'Please type in a question  for your card',
+        [
+          { text: 'OK' },
+        ],
+      )
+    } else if (!answer) {
+      Alert.alert(
+        'No Answer',
+        'Please type in an answer  for your card',
+        [
+          { text: 'OK' },
+        ],
+      )
+    } else {
+      const card = {
+        question,
+        answer
+      }
+
+      addCardToDeck(deck, card)
+
+      dispatch(addCard(deck, card))
+
+      navigation.dispatch(NavigationActions.back())
+
+      this.setState(() => ({
+        question: '',
+        answer: '',
+      }))
+
     }
-
-    console.log(navigation)
-    console.log(deck)
-    console.log(card)
-
-    addCardToDeck(deck, card)
-
-    dispatch(addCard(deck, card))
-
-    navigation.dispatch(NavigationActions.back())
-
-    this.setState(() => ({
-      question: '',
-      answer: '',
-    }))
-
   }
 
   render() {
