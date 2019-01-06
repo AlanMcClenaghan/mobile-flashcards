@@ -24,7 +24,7 @@ class NewDeck extends Component {
 
   handleSubmitTitle = () => {
     const { textInput } = this.state
-    const { dispatch, navigation } = this.props
+    const { dispatch, navigation, decks } = this.props
 
     if (!textInput) {
       Alert.alert(
@@ -34,6 +34,22 @@ class NewDeck extends Component {
           { text: 'OK' },
         ],
       )
+    } else if (textInput) {
+      Object.keys(decks).map((deck) => {
+        if (deck === textInput) {
+          Alert.alert(
+            'Deck Already Exists',
+            'Please type in another title for your deck.',
+            [
+              { text: 'OK' },
+            ],
+          )
+          this.setState(() => ({
+            textInput: ''
+          }))
+        }
+      })
+
     } else {
       const deck = {
         [textInput]: {
@@ -79,7 +95,13 @@ class NewDeck extends Component {
   }
 }
 
-export default connect()(NewDeck)
+function mapStateToProps(decks) {
+  return {
+    decks
+  }
+}
+
+export default connect(mapStateToProps)(NewDeck)
 
 const styles = StyleSheet.create({
   container: {
@@ -100,6 +122,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderWidth: 1,
     borderColor: black,
+    backgroundColor: white,
     marginTop: 10,
     borderRadius: 5
   },
