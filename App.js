@@ -13,10 +13,11 @@ import DeckList from './components/DeckList'
 import Deck from './components/Deck'
 import NewDeck from './components/NewDeck'
 import AddCard from './components/AddCard'
+import Quiz from './components/Quiz'
 
-function UdaciStatusBar({ backgroundColor, ...props }) {
+function UdaciStatusBar({ backgroundColor, color, ...props }) {
   return (
-    <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
+    <View style={{ backgroundColor, color, height: Constants.statusBarHeight }}>
       <StatusBar translucent backgroundColor={backgroundColor} {...props} />
     </View>
   )
@@ -78,6 +79,15 @@ const MainNavigator = StackNavigator({
         backgroundColor: purple
       }
     }
+  },
+  Quiz: {
+    screen: Quiz,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: purple
+      }
+    }
   }
 })
 
@@ -87,7 +97,7 @@ export default class App extends Component {
     return (
       <Provider store={createStore(reducer)}>
         <View style={styles.container}>
-          <UdaciStatusBar backgroundColor={purple} barStyle='light-content' />
+          <UdaciStatusBar backgroundColor={purple} color={white} barStyle='light-content' />
           <MainNavigator />
         </View>
       </Provider>

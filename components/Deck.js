@@ -24,11 +24,7 @@ class Deck extends Component {
   render() {
 
     const deck = this.props.navigation.state.params.entryId
-    const { decks, navigation } = this.props
-    const entryId = this.props.navigation.state.params.entryId
-
-
-    console.log(deck)
+    const { decks } = this.props
 
     return (
       <View style={styles.container}>
