@@ -7,6 +7,7 @@ import reducer from './reducers'
 import { MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons'
 import { Constants } from 'expo'
 import { purple, white } from './utils/colors'
+import { setLocalNotification } from './utils/helpers'
 
 // import views and components
 import DeckList from './components/DeckList'
@@ -92,6 +93,10 @@ const MainNavigator = StackNavigator({
 })
 
 export default class App extends Component {
+
+  componentDidMount() {
+    setLocalNotification()
+  }
 
   render() {
     return (

@@ -40,6 +40,8 @@ class DeckList extends Component {
       )
     }
 
+    // console.log(decks)
+
     return (
       <ScrollView>
         {Object.keys(decks).map((deck) => {

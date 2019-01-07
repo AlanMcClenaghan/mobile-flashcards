@@ -13,7 +13,7 @@ import Button from './Button'
 class NewDeck extends Component {
 
   state = {
-    textInput: ''
+    textInput: '',
   }
 
   handleChangeText = (textInput) => {
@@ -23,7 +23,7 @@ class NewDeck extends Component {
   }
 
   handleSubmitTitle = () => {
-    const { textInput } = this.state
+    const { textInput, createDeck } = this.state
     const { dispatch, navigation, decks } = this.props
 
     if (!textInput) {
@@ -34,39 +34,42 @@ class NewDeck extends Component {
           { text: 'OK' },
         ],
       )
-    } else if (textInput) {
-      Object.keys(decks).map((deck) => {
-        if (deck === textInput) {
-          Alert.alert(
-            'Deck Already Exists',
-            'Please type in another title for your deck.',
-            [
-              { text: 'OK' },
-            ],
-          )
-          this.setState(() => ({
-            textInput: ''
-          }))
-        }
+    }
+
+    if (textInput) {
+      const found = Object.keys(decks).find((deck) => {
+        return deck === textInput
       })
+      if (found) {
+        Alert.alert(
+          'Deck Already Exists',
+          'Please type in another title for your deck.',
+          [
+            { text: 'OK' },
+          ],
+        )
+        this.setState(() => ({
+          textInput: '',
+        }))
+      } else {
 
-    } else {
-      const deck = {
-        [textInput]: {
-          title: textInput,
-          questions: []
+        const deck = {
+          [textInput]: {
+            title: textInput,
+            questions: []
+          }
         }
+
+        dispatch(addDeck(deck))
+
+        navigation.navigate('Deck', { entryId: textInput })
+
+        this.setState(() => ({
+          textInput: '',
+          createDeck: false
+        }))
+
       }
-
-      saveDeckTitle(textInput)
-
-      dispatch(addDeck(deck))
-
-      navigation.navigate('Deck', { entryId: textInput })
-
-      this.setState(() => ({
-        textInput: ''
-      }))
     }
   }
 

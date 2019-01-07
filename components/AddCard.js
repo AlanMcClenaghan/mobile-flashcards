@@ -109,7 +109,7 @@ class AddCard extends Component {
           <Button
             onPress={this.handleSubmit}
             style={styles}
-            text={"Submit"}
+            text={"Create Card"}
             backgroundColor={black}
             color={white}
           />

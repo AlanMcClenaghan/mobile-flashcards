@@ -6,6 +6,7 @@ import { addCardToDeck } from '../utils/api'
 import { addCard } from '../actions'
 import Button from './Button'
 import { black, white, green, red } from '../utils/colors'
+import { clearLocalNotification, setLocalNotification } from '../utils/helpers'
 
 // Quiz View
 // displays a card question
@@ -83,8 +84,8 @@ class Quiz extends Component {
     if (decks[deck].questions.length === 0) {
       return (
         <View style={styles.container}>
-          <Text>There are no questions in the deck.</Text>
-          <Text>Please add some questions</Text>
+          <Text>There are no questions in this deck.</Text>
+          <Text>Please add some questions.</Text>
           <Button
             onPress={this.goBack}
             style={styles}
@@ -97,6 +98,10 @@ class Quiz extends Component {
     }
 
     if (questionCount === totalQuestions) {
+
+      clearLocalNotification()
+        .then(setLocalNotification)
+
       return (
         <View style={styles.container}>
           <Text style={styles.text}>Quiz completed</Text>
@@ -123,8 +128,8 @@ class Quiz extends Component {
       <View style={styles.container}>
         <Text>{questionCount + 1} / {totalQuestions}</Text>
         {!showAnswer
-          ? <Text>{decks[deck].questions[questionCount].question}</Text>
-          : <Text>{decks[deck].questions[questionCount].answer}</Text>}
+          ? <Text style={styles.question}>{decks[deck].questions[questionCount].question}</Text>
+          : <Text style={styles.answer}>{decks[deck].questions[questionCount].answer}</Text>}
 
         <TouchableOpacity
           onPress={this.toggleAnswer}
@@ -169,6 +174,20 @@ const styles = StyleSheet.create({
   text: {
     margin: 20,
     fontSize: 30,
+    color: black,
+    textAlign: 'center',
+    width: 250
+  },
+  question: {
+    margin: 20,
+    fontSize: 30,
+    color: black,
+    textAlign: 'center',
+    width: 250
+  },
+  answer: {
+    margin: 20,
+    fontSize: 20,
     color: black,
     textAlign: 'center',
     width: 250

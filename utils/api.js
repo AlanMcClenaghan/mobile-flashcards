@@ -50,11 +50,10 @@ export function saveDeckTitle(title) {
 
 export function addCardToDeck(deck, card) {
   return AsyncStorage.getItem(FLASHCARDS_STORAGE_KEY)
-    .then(results => JSON.parse(results))
     .then(results => {
       const decks = JSON.parse(results)
       decks[deck] = {
-        deck,
+        title: deck,
         question: decks[deck].questions.concat(card)
       }
       AsyncStorage.setItem(FLASHCARDS_STORAGE_KEY, JSON.stringify(decks))
